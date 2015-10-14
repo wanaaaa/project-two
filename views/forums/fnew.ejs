@@ -1,0 +1,22 @@
+<h1>Welcome to Forum</h1>
+
+<form action="/forumcomments" method="post">
+	<h2>Title</h2>
+	<input type="text" 
+					name="topic[title]"
+					placeholder="Title"><br>
+	<h3>Content</h3>
+	<input type="text"
+					name="topic[content]"
+					placeholder="content"><br>
+
+	<label>Vote Point</label>
+	<input type="radio" name="topic[vote]" value="1"> Good
+	<input type="radio" name="topic[vote]" value="0"> bad<br>
+
+	<input type="text"
+					name="topic[comment]"
+					placeholder="comment">
+
+	<input type="submit" value="submit">
+</form>

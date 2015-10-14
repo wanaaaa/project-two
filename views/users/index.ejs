@@ -1,0 +1,13 @@
+<h3 >User name and password List</h3>
+
+<% userObjects.forEach(function (object, i) { %>
+	<h4>
+			<%= object.username %> --- <%= object.password %>
+			<a href="/users/<%= object._id %>/edit">Edit</a> 
+			
+		<form action="/users/<%= object._id %>?_method=DELETE" method="post">
+			<input type="submit" value="delete">	
+		</form>
+	</h4>
+<% }) %>
+

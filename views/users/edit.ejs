@@ -1,0 +1,15 @@
+<h1>Edit the user information</h1>
+<h3><%= userInfos %></h3>
+
+<form action="/users" method="post">
+	<label>User name: <%= userInfos.username %></label>
+	<input type="text" 
+					name="user[username]"
+					placeholder="<%= userInfos.username %>"><br>
+
+	<label>Password: <%= userInfos.password %></label>
+	<input type="password"
+					name="user[password]"
+					placeholder="<%= userInfos.password %>">
+	<input type="submit" value="Click to update">
+</form>
