@@ -1,0 +1,25 @@
+<h3>Topic statistics</h3>
+
+
+<% var ltitle = "", llength = 0, arr = []; %>
+<% topicObjects.forEach(function (topic) { %>
+	<% if (topic.comment.length > llength) {  %>
+	<% 	llength = topic.comment.length  %> 
+	<% 	ltitle = topic.title %> 
+	<% }; %> 
+	<%		sum = 0; %>
+	<%		topic.vote.forEach(function (i) { %>
+	<%			sum += i; %>
+	<%		}); %>
+	<%		arr.push([sum, topic.title]); %>
+<%}) %> 
+<h3>** The mose comment title is <strong><%= ltitle %></strong>  commtend <%= llength%> times</h3>
+
+
+<h3> ** List of sorted topics sorted by vote</h3>
+<h3><% arr.sort().reverse().forEach(function (ele, i) { %>
+	 No.<%= i + 1 %>:
+	 <%= ele[1] %><br>
+	<% }) %></h3>
+
+<p><%=topicObjects %></p>

@@ -1,25 +1,23 @@
 <h1>Edit the topic</h1>
-<h3><%= topicInfos %></h3>
+<p><%= topicInfos %></h3>
 
-<form action="/fedit/<%= topicInfos._id %>" method="?_method=PATCH">
-	<label>Title: <%= topicInfos.title %></label>
+<form action="/forums/<%= topicInfos._id %>?_method=PATCH" method="post">
+	<label>Title: </label>
 	<input type="text" 
 					name="topic[title]"
 					placeholder="<%= topicInfos.title %>"><br>
 
-	<label>Content: <%= topicInfos.content %></label>
-	<input type="text"
-					name="topic[content]"
-					placeholder="<%= topicInfos.content %>">
+	<label>Content:</label><br>
+	<textarea name="topic[content]"> <%= topicInfos.content %> </textarea><br> 
 
-	<label>Vote Point: <%= topicInfos.vote %></label>
+<!-- 	<label>Vote Point:</label>
 	<input type="radio" name="topic[vote]" value="1"> Good
 	<input type="radio" name="topic[vote]" value="0"> bad<br>
 
 	<label>Comment: <%= topicInfos.comment %></label>
 	<input type="text"
 					name="topic[comment]"
-					placeholder="<%= topicInfos.comment %>">
+					placeholder="<%= topicInfos.comment %>"> -->
 
 
 

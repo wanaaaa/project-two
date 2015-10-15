@@ -1,15 +1,34 @@
+<h4><a href="/forums/fnew">Make new topic</a></h4>
+
 <h3 >Topic List</h3>
 
-<% topicObjects.forEach(function (object, i) { %>
-	<h4>
-			<%= object.title %> --- <%= object.content %><br>
+<div class="box-padding">
+	<% topicObjects.forEach(function (object, i) { %>
+		<h4>
+			Author  : <%= object.author %><br>
+			Title   : <%= object.title %><br>
+			content : <br>
+			<div class="box-comments">
+				<%= object.content %><br>
+			</div>
+
 			vote point: <%= object.vote %><br>
-			comment first: <%= object.comment %>,  
-			<a href="/forums/<%= object._id %>/fcomments">other comments</a><br>
+			
+			Comments List: <br>	
+			<div class="box-comments">	
+				<% object.comment.forEach(function (j) {%>
+				user: <%=	j.user %><br>
+				comment: <%=	j.content %>
+				<%	}) %>
+			</div>
+		  
+			<a href="/forumcomments/<%= object._id %>/fcomments">Add point and comments</a><br>
+			
 			<a href="/forums/<%= object._id %>/fedit">Edit</a>
 			<form action="/forums/<%= object._id %>?_method=DELETE" method="post">
 				<input type="submit" value="delete">	
 			</form>
 
-	</h4>
-<% }) %>
+		</h4>
+	<% }) %>
+</div>

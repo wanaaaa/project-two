@@ -6,22 +6,39 @@ router.get('/', function (req, res) {
 	res.render('forumcomments/fCommentWelcome'); 
 });
 
-router.use('/fnew', function (req, res) {
-	res.render('forumcomments/fnew'); 
+// router.use('/forumcomments', function (req, res) {
+// 	res.render('forumcomments/fcomments'); 
+// });
+
+router.get('/:id/fcomments', function (req, res) {
+	Topic.findOne({
+		_id: req.params.id
+	}, function (err, foundTopic) {
+		if (err) {
+			console.log("We found err");
+		} else { 
+			res.render('forumcomments/fcomments', { 
+			topicInfos: foundTopic
+			});
+		};
+	});
 });
 
 router.post('/', function (req, res) {
-	var newTopic = new Topic(req.body.topic);
-	console.log(req.body.topic);
-
-	newTopic.save(function (err, topicObject) {
-		if (err) {
-			console.log(err);
-		} else {
-			console.log(topicObject);
-			console.log("save");
-		}
+	console.log(req.body);
+	Topic.findById({ _id: req.body.topicId }, function (err, topic) {
+		var commentObj = {content:req.body.comment, user:req.session.currentUser}
+		topic.comment.push(commentObj);
+		topic.vote.push(req.body.vote);
+		topic.save(function (err, topic) {
+			if (err) {
+				console.log(err)
+			} else {
+				res.redirect(301, '/forums/findex');
+			}
+		})
 	})
+
 });
 
 

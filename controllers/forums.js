@@ -2,7 +2,7 @@ var express = require('express'),
 	router = express.Router();
 	Topic = require('../models/forum.js');
 
-router.get('/', function (req, res) {
+router.get('/fwelcome', function (req, res) {
 	res.render('forums/fwelcome'); 
 });
 
@@ -11,40 +11,18 @@ router.get('/fnew', function (req, res) {
 });
 
 router.post('/', function (req, res) {
-	console.log(req.body);
-	Topic.findById({ _id: req.body.topicId }, function (err, topic) {
-		topic.comment.push(req.body.comment);
-		topic.save(function (err, topic) {
-			if (err) {
-				console.log(err)
-			} else {
-				res.redirect(301, '/forums/findex');
-			}
-		})
-	})
-
-	// var newTopic = new Topic(req.body.topic);
-
-	// newTopic.save(function (err, topicObject) {
-	// 	if (err) {
-	// 		console.log(err);
-	// 	} else {
-	// 		console.log(topicObject);
-	// 		res.redirect('301', '/forums/findex')
-	// 	}
-	// })
-});
-
-router.post('/ffnew', function (req, res) {
 	var newTopic = new Topic(req.body.topic);
 	console.log(req.body.topic);
-
+	console.log("I am saving 01");
+	console.log(req.session);
+	newTopic.author = req.session.currentUser;
 	newTopic.save(function (err, topicObject) {
 		if (err) {
 			console.log(err);
 		} else {
 			console.log(topicObject);
-			res.redirect('301', '/forums/findex')
+			console.log("I am saving 02");
+			res.redirect(301, '/forums/findex')
 		}
 	})
 });
@@ -52,6 +30,9 @@ router.post('/ffnew', function (req, res) {
 
 
 router.get('/findex', function (req, res) {
+
+	console.log(req.session.currentUser, "findex");
+
 	Topic.find({}, function (err, topicContent) {
 		if (err) {
 			console.log(err);
@@ -78,14 +59,16 @@ router.get('/:id/fedit', function (req, res) {
 });
 
 router.patch('/:id', function (req, res) {
-	console.log(req.params);
+	console.log(req.params.topic, "params.topic");
+	console.log("patch incomming");
+
 	Topic.findOne({
 		_id: req.params.id
 	}, function (err, foundTopic) {
 		if (err) {
 			console.log('Bad topic');
 		} else {
-			foundUser.update(req.params, function (errTwo, ttopic) {
+			foundTopic.update(req.body.topic, function (errTwo, topic) {
 				if (errTwo) {
 					console.log("error update");
 				} else {
@@ -97,8 +80,23 @@ router.patch('/:id', function (req, res) {
 	});	
 });
 
+// router.patch('/:id', function (req, res) {
+// 	console.log(req.body, "I am body");
+// 	console.log(req.params, "I am parmas");
+
+//   Topic.update({_id : req.params.id
+//   	}, req.body.topic, function (err, result) {
+//     if(err) {
+//       console.log(err);
+//     } else {
+//       res.redirect(301, '/forums/findex');
+//     };
+//   });
+// });
+
 router.delete('/:id', function (req, res) {
 	console.log(req.params.id);
+	console.log("I am deleting");
 	Topic.remove({
 		_id: req.params.id
 	}, function (err) {
@@ -110,19 +108,29 @@ router.delete('/:id', function (req, res) {
 	});
 });
 
-router.get('/:id/fcomments', function (req, res) {
-	Topic.findOne({
-		_id: req.params.id
-	}, function (err, foundTopic) {
+router.get('/topicranking', function (req, res) {
+	console.log("topicranking");
+	Topic.find({}, function (err, topicContent) {
 		if (err) {
-			console.log("We found err");
-		} else { 
-			res.render('forums/fcomments', { 
-			topicInfos: foundTopic
-			});
+			console.log(err);
+		} else {			
+			res.render('forums/topicranking', {topicObjects: topicContent});
 		};
 	});
-});
+})
+
+// router.get('/popular', function (req, res, next) {
+// 	Post.find().sort({votes: -1}).limit(12).exec(function (err, thePosts) {
+// 		if(err){
+// 			console.log(err);
+// 			res.render('posts/popular');
+// 		}else{
+// 			res.render('posts/popular', {
+// 			post: thePosts
+// 			});
+// 		}
+// 	});
+// });
 
 module.exports = router;
 

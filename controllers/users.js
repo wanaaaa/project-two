@@ -11,14 +11,18 @@ router.get('/login', function (req, res) {
 	res.render('users/login');
 });
 
+
+
 router.post('/login', function (req, res) {
 	var currentUser = req.body.user;
+
+	console.log(req.session);
 
 	User.findOne({username: currentUser.username}, function (err, foundUser) {
 		if (foundUser && foundUser.password === currentUser.password) {
 			req.session.currentUser = foundUser.username;
-
-			res.redirect(301, "/forums/fwelcome");
+			console.log(req.session.currentUser);
+			res.redirect(301, "/forums/findex");
 		} else {
 			res.redirect(301, '/users/new');
 		}
@@ -72,7 +76,7 @@ router.patch('/:id', function (req, res) {
 		if (err) {
 			console.log('Bad user');
 		} else {
-			foundUser.update(req.params.id, function (errTwo, uuser) {
+			foundUser.update(req.body.id, function (errTwo, uuser) {
 				if (errTwo) {
 					console.log("error update");
 				} else {
