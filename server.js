@@ -1,9 +1,7 @@
-// var express = require('express'),
-// 	PORT = process.env.PORT || 5432;
-// 	server = express();
-// 	MONGOURI = process.env.MONGOLAB_URI || "mongodb://localhost:27017",
-// 	dbname = "pease_change_this",
-// 	mongoose = require('mongoose');
+var PORT = process.env.PORT || 3000,
+	MONGOURI = process.env.MONGOLAB_URI || "mongodb://localhost:27017",
+	// dbname = "pease_change_this";
+
 
 // server.get('/', function (req, res) {
 // 	res.write("Welcome to my amaizng app");
@@ -62,7 +60,7 @@ server.use(function (req, res, next) {
 });
 
 // Database + server
-mongoose.connect('mongodb://localhost:27017/my_forum');
+mongoose.connect(MONGOURI);
 var db = mongoose.connection;
 
 db.on('error', function () {
@@ -71,7 +69,7 @@ db.on('error', function () {
 
 db.once('open', function () {
 	console.log("Database up and running");
-	server.listen(3000, function () {
+	server.listen(PORT, function () {
 		console.log("server up and running");
 	})
 })
