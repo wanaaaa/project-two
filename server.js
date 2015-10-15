@@ -1,5 +1,5 @@
 var PORT = process.env.PORT || 3000,
-	MONGOURI = process.env.MONGOLAB_URI || "mongodb://localhost:27017",
+	MONGOURI = process.env.MONGOLAB_URI || "mongodb://localhost:27017";
 	// dbname = "pease_change_this";
 
 
