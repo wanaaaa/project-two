@@ -1,14 +1,15 @@
 <h1>Edit the topic</h1>
-<p><%= topicInfos %></h3>
+
 
 <form action="/forums/<%= topicInfos._id %>?_method=PATCH" method="post">
-	<label>Title: </label>
-	<input type="text" 
-					name="topic[title]"
-					placeholder="<%= topicInfos.title %>"><br>
+	<label>Title: </label><br>
+	<textarea name="topic[title]" class="form-box"><%= topicInfos.title %></textarea><br>
+
+	<label>Author: </label><br>
+	<textarea name="topic[author]" class="form-box"><%= topicInfos.author %></textarea><br>
 
 	<label>Content:</label><br>
-	<textarea name="topic[content]"> <%= topicInfos.content %> </textarea><br> 
+	<textarea name="topic[content]" class="form-box"> <%= topicInfos.content %> </textarea><br> 
 
 <!-- 	<label>Vote Point:</label>
 	<input type="radio" name="topic[vote]" value="1"> Good
@@ -23,3 +24,5 @@
 
 	<input type="submit" value="Click to update">
 </form>
+
+<p><%= topicInfos %></h3>

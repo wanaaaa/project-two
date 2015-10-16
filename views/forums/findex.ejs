@@ -1,10 +1,16 @@
 <h4><a href="/forums/fnew">Make new topic</a></h4>
 <h4><a href="/forums/topicranking">Topic statistics</a></h4>
 
-<h3 >Topic List</h3>
-
-<div class="box-padding">
+<div class="col-xs-3 col-md-3">
 	<% topicObjects.forEach(function (object, i) { %>
+		<h5 class="title" data=<%='a'+ i %>  ><%= object.title  %></h4>
+	<% }); %>
+</div>
+
+<div class="col-xs-7 col-md-7">
+<h3 >Topic List</h3>
+	<% topicObjects.forEach(function (object, i) { %>
+	<div id=<%='a'+ i %> class="box-padding fcontent hide">
 		<h4>
 			Author  : <%= object.author %><br>
 			Title   : <%= object.title %><br>
@@ -31,5 +37,17 @@
 			</form>
 
 		</h4>
+	</div>
 	<% }) %>
 </div>
+
+
+
+
+
+
+
+
+
+
+

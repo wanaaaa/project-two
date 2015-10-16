@@ -2,6 +2,10 @@ body {
 	background-color: lightgrey;
 }
 
+.form-box {
+	width: 100%
+}
+
 .box-padding {
 	border: 3px solid black;
 	padding-left: 10px;
