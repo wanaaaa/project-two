@@ -8,4 +8,6 @@ $(function() {
 		$('.fcontent').addClass('hide');
 		$(idbb).removeClass('hide');
 	});
+
 });
+

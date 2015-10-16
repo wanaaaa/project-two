@@ -17,3 +17,7 @@ body {
 	padding-left: 3px;
 	padding-bottom: 10px;
 }
+
+.title:hover {
+	background-color: yellow;
+}
